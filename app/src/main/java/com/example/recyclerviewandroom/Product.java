@@ -9,11 +9,11 @@ import androidx.room.PrimaryKey;
 public class Product {
     @PrimaryKey
     @NonNull
-    int _id;
+    private int _id;
     @NonNull
-    String name, category;
+    private String name, category;
     @NonNull
-    float price;
+    private float price;
 
     @Ignore
     public Product(@NonNull String name, @NonNull String category, @NonNull float price) {
@@ -29,7 +29,31 @@ public class Product {
         this.price = price;
     }
 
+    public void setId(int id) {
+        this._id = id;
+    }
+    public int getId() {
+        return this._id;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+    public String getName() {
+        return this.name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public String getCategory() {
+        return this.category;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    public float getPrice() {
+        return this.price;
     }
 }

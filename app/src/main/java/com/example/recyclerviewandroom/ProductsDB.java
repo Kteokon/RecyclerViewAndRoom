@@ -1,17 +1,20 @@
 package com.example.recyclerviewandroom;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Product.class}, version = 1) // Указываем, для какой модели создаём БД. Если модель данных изменилась, надо не забыть поменять версию
+@Database(entities = {Product.class}, version = 1)
 public abstract class ProductsDB extends RoomDatabase {
-    abstract ProductDAO productList();
+    abstract ProductDAO productDAO();
 
     private static final String DB_NAME = "products.db";
-    private static volatile ProductsDB INSTANCE = null; // volatile - данная переменная не должна кэшироваться виртуальной машиной
+    private static volatile ProductsDB INSTANCE = null;
 
     static ProductsDB create(Context ctxt, boolean memoryOnly) {
         RoomDatabase.Builder<ProductsDB> b;
@@ -32,4 +35,24 @@ public abstract class ProductsDB extends RoomDatabase {
         }
         return(INSTANCE);
     }
+
+//    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+//            super.onCreate(db);
+//        }
+//    };
+//
+//    private static class PopulateDBTask extends AsyncTask<Void, Void, Void> {
+//        private ProductDAO productDAO;
+//        private PopulateDBTask(ProductsDB productsDB) {
+//            this.productDAO = productsDB.productDAO();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+//            productDAO.insert(new Product());
+//            return null;
+//        }
+//    }
 }

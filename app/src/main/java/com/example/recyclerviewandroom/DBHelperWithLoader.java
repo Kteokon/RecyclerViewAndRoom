@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,6 +59,7 @@ public class DBHelperWithLoader extends SQLiteOpenHelper {
 
     private boolean checkDataBase() {
         File dbFile = new File(DB_PATH + DB_NAME);
+
         return dbFile.exists();
     }
 
