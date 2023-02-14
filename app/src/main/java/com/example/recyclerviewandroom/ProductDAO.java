@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+
 import java.util.List;
 
 @Dao
@@ -16,9 +17,6 @@ public interface ProductDAO {
 
     @Query("SELECT * FROM product WHERE _id=:id")
     Product findById(int id);
-
-    @Query("SELECT * FROM product WHERE category=:category")
-    LiveData<List<Product>> findByCategory(String category);
 
     @Insert
     void insert(Product... products);

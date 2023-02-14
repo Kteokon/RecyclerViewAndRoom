@@ -16,10 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelperWithLoader extends SQLiteOpenHelper {
-    private static String DB_NAME = "products.db";
-    // (должно совпадать с именем файла в /assets
+    private static String DB_NAME = "products2.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private SQLiteDatabase mDataBase;
     private final Context myContext;

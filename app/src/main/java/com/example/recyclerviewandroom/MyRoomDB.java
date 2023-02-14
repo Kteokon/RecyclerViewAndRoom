@@ -1,35 +1,33 @@
 package com.example.recyclerviewandroom;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {Product.class}, version = 1)
-public abstract class ProductsDB extends RoomDatabase {
+@Database(entities = {Product.class, Category.class}, version = 2)
+public abstract class MyRoomDB extends RoomDatabase {
     abstract ProductDAO productDAO();
+    abstract CategoryDAO categoryDAO();
 
-    private static final String DB_NAME = "products.db";
-    private static volatile ProductsDB INSTANCE = null;
+    private static final String DB_NAME = "products2.db";
+    private static volatile MyRoomDB INSTANCE = null;
 
-    static ProductsDB create(Context ctxt, boolean memoryOnly) {
-        RoomDatabase.Builder<ProductsDB> b;
+    static MyRoomDB create(Context ctxt, boolean memoryOnly) {
+        RoomDatabase.Builder<MyRoomDB> b;
         if (memoryOnly) {
             b = Room.inMemoryDatabaseBuilder(ctxt.getApplicationContext(),
-                    ProductsDB.class);
+                    MyRoomDB.class);
         }
         else {
-            b = Room.databaseBuilder(ctxt.getApplicationContext(), ProductsDB.class,
+            b = Room.databaseBuilder(ctxt.getApplicationContext(), MyRoomDB.class,
                     DB_NAME);
         }
         return(b.build());
     }
 
-    synchronized static ProductsDB get(Context ctxt) {
+    synchronized static MyRoomDB get(Context ctxt) {
         if (INSTANCE == null) {
             INSTANCE = create(ctxt, false);
         }

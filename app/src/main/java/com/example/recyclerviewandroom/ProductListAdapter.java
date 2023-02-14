@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         Product product = products.get(position);
         holder.idTV.setText(Integer.toString(product.getId()));
         holder.nameTV.setText(product.getName());
-        holder.categoryTV.setText(product.getCategory());
+        holder.categoryTV.setText(Integer.toString(product.getCategoryId()));
         holder.priceTV.setText(Float.toString(product.getPrice()));
         holder.cl.setOnClickListener(new View.OnClickListener() {
             @Override

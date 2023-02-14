@@ -12,8 +12,8 @@ public class ProductRepository {
     LiveData<List<Product>> products;
 
     public ProductRepository(Application application) {
-        ProductsDB productsDB = ProductsDB.get(application);
-        this.productDAO = productsDB.productDAO();
+        MyRoomDB myRoomDB = MyRoomDB.get(application);
+        this.productDAO = myRoomDB.productDAO();
         this.products = productDAO.selectAll();
     }
 
@@ -88,8 +88,8 @@ public class ProductRepository {
 
         @Override
         protected Void doInBackground(Application... applications) {
-            ProductsDB productsDB = ProductsDB.get(applications[0]);
-            productsDB.clearAllTables();
+            MyRoomDB myRoomDB = MyRoomDB.get(applications[0]);
+            myRoomDB.clearAllTables();
             return null;
         }
     }

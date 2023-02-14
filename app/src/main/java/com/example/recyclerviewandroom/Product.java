@@ -1,31 +1,33 @@
 package com.example.recyclerviewandroom;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-@Entity(tableName = "product")
+@Entity(tableName = "product",
+        foreignKeys = {@ForeignKey(entity = Category.class,
+                parentColumns = "_id",
+                childColumns = "category_id",
+                onDelete = ForeignKey.CASCADE)
+        })
 public class Product {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int _id;
     @NonNull
-    private String name, category;
+    private String name;
+    @NonNull
+    @ColumnInfo(name = "category_id")
+    private int categoryId;
     @NonNull
     private float price;
 
-    @Ignore
-    public Product(@NonNull String name, @NonNull String category, @NonNull float price) {
+    public Product(@NonNull String name, @NonNull int categoryId, @NonNull float price) {
         this.name = name;
-        this.category = category;
-        this.price = price;
-    }
-
-    public Product(int _id, @NonNull String name, @NonNull String category, @NonNull float price) {
-        this._id = _id;
-        this.name = name;
-        this.category = category;
+        this.categoryId = categoryId;
         this.price = price;
     }
 
@@ -43,11 +45,11 @@ public class Product {
         return this.name;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
-    public String getCategory() {
-        return this.category;
+    public int getCategoryId() {
+        return this.categoryId;
     }
 
     public void setPrice(float price) {
