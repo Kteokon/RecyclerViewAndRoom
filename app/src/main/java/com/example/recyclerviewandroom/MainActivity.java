@@ -18,7 +18,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     DBHelperWithLoader dbHelper;
     MyRoomDB myRoomDB;
     private List<Product> products;
+    private List<ProductWithCategory> productWithCategories;
+    private List<Category> categories;
     public static final int ADD_PRODUCT_REQUEST = 1;
+    public static final int ADD_CATEGORY_REQUEST = 2;
 
     private ProductViewModel productViewModel;
     private RecyclerView productList;
@@ -44,7 +47,23 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 products = _products;
                 adapter.setProducts(products);
                 // update RecycleView
-                Log.d("mytag", "Records in adapter: " + adapter.getItemCount());
+            }
+        });
+
+        productViewModel.getAllCategories().observe(this, new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> _categories) {
+                categories = _categories;
+                Log.d("mytag", "Categories size: " + categories.size());
+            }
+        });
+
+        productViewModel.getAllProductWithCategory().observe(this, new Observer<List<ProductWithCategory>>() {
+            @Override
+            public void onChanged(List<ProductWithCategory> _productWithCategories) {
+                productWithCategories = _productWithCategories;
+                Log.d("mytag", "Product with categories size: " + productWithCategories.size());
+                Log.d("mytag", "4 product's category id: " + productWithCategories.get(3).category.getId());
             }
         });
     }
@@ -54,9 +73,14 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         Log.d("mytag", item.getName());
     }
 
-    public void onClick(View v) {
-        Intent intent = new Intent(this, AddActivity.class);
+    public void addProduct(View v) {
+        Intent intent = new Intent(this, AddProductActivity.class);
         startActivityForResult(intent, ADD_PRODUCT_REQUEST);
+    }
+
+    public void addCategory(View v) {
+        Intent intent = new Intent(this, AddCategoryActivity.class);
+        startActivityForResult(intent, ADD_CATEGORY_REQUEST);
     }
 
     @Override
@@ -67,8 +91,25 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             int id = products.size() + 1;
 
             String name = data.getStringExtra("name");
-            String category = data.getStringExtra("category");
+            String categoryName = data.getStringExtra("category");
             float price = Float.parseFloat(data.getStringExtra("price"));
+
+            Category category = productViewModel.getCategoryByName(categoryName);
+            if (category == null) {
+                category = new Category(categoryName);
+                category.setId(categories.size() + 1);
+                productViewModel.insert(category);
+            }
+            Product product = new Product(name, category.getId(), price);
+            Log.d("mytag", category.getName());
+
+            productViewModel.insert(product);
+        }
+
+        if (requestCode == ADD_CATEGORY_REQUEST && resultCode == RESULT_OK) {
+            //int id = categories.size() + 1;
+
+            String name = data.getStringExtra("name");
 
 //            Product product = new Product(name, category, price);
 //            productViewModel.insert(product);

@@ -17,7 +17,7 @@ public interface CategoryDAO {
     @Query("SELECT * FROM category ORDER BY name")
     LiveData<List<Category>> selectAll();
 
-    @Query("SELECT * FROM category WHERE _id=:id")
+    @Query("SELECT * FROM category WHERE category_id=:id")
     Category findById(int id);
 
     @Query("SELECT * FROM category WHERE name=:name")

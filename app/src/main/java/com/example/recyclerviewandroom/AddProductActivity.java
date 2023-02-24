@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class AddActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity {
     EditText nameET, categoryET, priceET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_addproduct);
 
         nameET = findViewById(R.id.name);
         categoryET = findViewById(R.id.category);
         priceET = findViewById(R.id.price);
     }
 
-    public void addProduct(View v) {
+    public void saveProduct(View v) {
         String name = nameET.getText().toString();
         String category = categoryET.getText().toString();
         String price = priceET.getText().toString();

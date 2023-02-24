@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 @Database(entities = {Product.class, Category.class}, version = 2)
+@TypeConverters({Converters.class})
 public abstract class MyRoomDB extends RoomDatabase {
     abstract ProductDAO productDAO();
     abstract CategoryDAO categoryDAO();

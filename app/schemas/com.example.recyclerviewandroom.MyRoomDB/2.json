@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "cee9e0caadf32942a265c9e68ae1ac05",
+    "identityHash": "fe25204265755d6524079082d1e77246",
     "entities": [
       {
         "tableName": "product",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category_id` TEXT NOT NULL, `price` REAL NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `category`(`_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`product_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category_id` INTEGER, `price` REAL NOT NULL, FOREIGN KEY(`category_id`) REFERENCES `category`(`category_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
-            "fieldPath": "_id",
-            "columnName": "_id",
+            "fieldPath": "id",
+            "columnName": "product_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -21,10 +21,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "category",
+            "fieldPath": "categoryId",
             "columnName": "category_id",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "INTEGER",
+            "notNull": false
           },
           {
             "fieldPath": "price",
@@ -35,7 +35,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "_id"
+            "product_id"
           ],
           "autoGenerate": true
         },
@@ -49,23 +49,23 @@
               "category_id"
             ],
             "referencedColumns": [
-              "_id"
+              "category_id"
             ]
           }
         ]
       },
       {
         "tableName": "category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`category_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "_id",
-            "columnName": "_id",
+            "fieldPath": "id",
+            "columnName": "category_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "name",
+            "fieldPath": "catName",
             "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
@@ -73,7 +73,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "_id"
+            "category_id"
           ],
           "autoGenerate": true
         },
@@ -84,7 +84,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cee9e0caadf32942a265c9e68ae1ac05')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fe25204265755d6524079082d1e77246')"
     ]
   }
 }

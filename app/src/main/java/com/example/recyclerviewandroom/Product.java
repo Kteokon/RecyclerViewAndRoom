@@ -9,33 +9,33 @@ import androidx.room.TypeConverters;
 
 @Entity(tableName = "product",
         foreignKeys = {@ForeignKey(entity = Category.class,
-                parentColumns = "_id",
+                parentColumns = "category_id",
                 childColumns = "category_id",
                 onDelete = ForeignKey.CASCADE)
         })
 public class Product {
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    private int _id;
+    @ColumnInfo(name = "product_id")
+    private int id;
     @NonNull
     private String name;
-    @NonNull
     @ColumnInfo(name = "category_id")
-    private int categoryId;
+    private Integer categoryId;
     @NonNull
     private float price;
 
-    public Product(@NonNull String name, @NonNull int categoryId, @NonNull float price) {
+    public Product(@NonNull String name, Integer categoryId, @NonNull float price) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
     }
 
     public void setId(int id) {
-        this._id = id;
+        this.id = id;
     }
     public int getId() {
-        return this._id;
+        return this.id;
     }
 
     public void setName(String name) {
@@ -45,10 +45,10 @@ public class Product {
         return this.name;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return this.categoryId;
     }
 
